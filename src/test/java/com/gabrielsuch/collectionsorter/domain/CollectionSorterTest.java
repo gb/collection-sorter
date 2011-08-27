@@ -79,7 +79,13 @@ public class CollectionSorterTest {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("inexistentField"));
 		new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
 	}
-
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullCollection() {
+		OrderCriteria orderCriteria = new OrderCriteria(new Order("inexistentField"));
+		new CollectionSorterImpl<Car>(null).sortBy(orderCriteria);
+	}
+	
 	private void setup3DistinctCars() {
 		collection.add(new Car("Ford Fiest", "Blue", 2011, 50000.0));
 		collection.add(new Car("Ford Focus", "Silver", 2009, 40000.0));

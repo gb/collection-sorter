@@ -8,7 +8,7 @@ public class ReflectionUtils {
 	
 	private ReflectionUtils() { }
 
-	public static boolean classContainsField(Class<?> clazz, String fieldName) {
+	public static boolean classContainsGetter(Class<?> clazz, String fieldName) {
 		Method[] methodList = clazz.getDeclaredMethods();
 		
 		for (Method method : methodList) 
