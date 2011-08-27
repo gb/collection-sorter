@@ -1,0 +1,31 @@
+*** Collection Sorter
+
+It's about provide an API to order collections in SQL order by style.
+
+Imagine that you have a Collection<Car> or any other typed collection.
+You want ordain this collection by color and the newest first.
+
+What you are suposed to do?
+1) Ask to your datasource again?
+2) Implements a lot of different comparator/comparable?
+3) Reinvent the wheel?
+
+What about:
+criteria = new OrderCriteria(
+	new Order("color"), 
+	new Order("year", SortOrder.DESC)
+); 
+
+new CollectionSorter(yourCollection).sortBy(criteria);
+
+Good for you. But now your customer has changed his mind.
+He had the brilliant idea of ordain by the lowest price.
+But still keep the others sorters before it. What you have to do?
+
+criteria = new OrderCriteria(
+	new Order("color"), 
+	new Order("year", SortOrder.DESC), 
+	new Order("price")
+); 
+
+new CollectionSorter(yourCollection).sortBy(criteria);
