@@ -9,7 +9,7 @@ public class OrderCriteriaTest {
 	private OrderCriteria orderCriteria;
 	
 	@Test
-	public void testAssuranceTheIndexOfOrders() {
+	public void testEnsureTheIndexOfOrders() {
 		orderCriteria = new OrderCriteria(
 			new Order("color"),
 			new Order("year"),
