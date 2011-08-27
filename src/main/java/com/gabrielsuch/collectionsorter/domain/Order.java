@@ -2,14 +2,15 @@ package com.gabrielsuch.collectionsorter.domain;
 
 public class Order {
 	
-	private String field;
+	private final String field;
 	private SortOrder sortOrder = SortOrder.ASC;
 	
 	public Order(String field) {
 		this.field = field;
 	}
-
-	public void setSortOrder(SortOrder sortOrder) {
+	
+	public Order(String field, SortOrder sortOrder) {
+		this.field = field;
 		this.sortOrder = sortOrder;
 	}
 

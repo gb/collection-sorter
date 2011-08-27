@@ -8,8 +8,8 @@ public class OrderCriteria {
 	
 	private final List<Order> orderCriteria = new ArrayList<Order>();
 	
-	public void addOrder(Order order) {
-		orderCriteria.add(order);
+	public OrderCriteria(Order... orders) {
+		for (Order order : orders) orderCriteria.add(order);
 	}
 
 	public List<Order> getCriteria() {

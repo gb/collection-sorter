@@ -17,8 +17,7 @@ public class OrderTest {
 	
 	@Test
 	public void shouldGetTrueWhenAskIfTheSortOrderIsDescToADescSpecifiedOrder() {
-		order = new Order("name");
-		order.setSortOrder(SortOrder.DESC);
+		order = new Order("name", SortOrder.DESC);
 		assertTrue(order.isDesc());
 	}
 
