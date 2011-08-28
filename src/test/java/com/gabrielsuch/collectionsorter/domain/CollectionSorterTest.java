@@ -80,6 +80,30 @@ public class CollectionSorterTest {
 		assertEquals(current.get(2).getColor(), "White");
 	}
 	
+	@Test
+	public void testSimpleCriteria() {
+		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy("price");
+		
+		assertEquals(current.get(5).getPrice().intValue(), 100000);
+		assertEquals(current.get(4).getPrice().intValue(), 99000);
+		assertEquals(current.get(3).getPrice().intValue(), 95000);
+		assertEquals(current.get(2).getPrice().intValue(), 90000);
+		assertEquals(current.get(1).getPrice().intValue(), 50000);
+		assertEquals(current.get(0).getPrice().intValue(), 40000);
+	}
+	
+	@Test
+	public void testSimpleCriteriaDesc() {
+		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy("price", SortOrder.DESC);
+		
+		assertEquals(current.get(0).getPrice().intValue(), 100000);
+		assertEquals(current.get(1).getPrice().intValue(), 99000);
+		assertEquals(current.get(2).getPrice().intValue(), 95000);
+		assertEquals(current.get(3).getPrice().intValue(), 90000);
+		assertEquals(current.get(4).getPrice().intValue(), 50000);
+		assertEquals(current.get(5).getPrice().intValue(), 40000);
+	}
+	
 	@Test(expected = OrderException.class)
 	public void testSanityCheck() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("inexistentField"));
