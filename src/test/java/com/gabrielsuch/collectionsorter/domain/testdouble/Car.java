@@ -5,9 +5,9 @@ public class Car {
 	private final String model;
 	private final String color;
 	private final int year;
-	private final Double price;
+	private final long price;
 
-	public Car(String model, String color, int year, Double price) {
+	public Car(String model, String color, int year, long price) {
 		this.model = model;
 		this.color = color;
 		this.year = year;
@@ -26,7 +26,7 @@ public class Car {
 		return year;
 	}
 
-	public Double getPrice() {
+	public long getPrice() {
 		return price;
 	}
 

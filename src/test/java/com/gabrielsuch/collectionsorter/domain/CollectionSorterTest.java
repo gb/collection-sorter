@@ -3,7 +3,7 @@ package com.gabrielsuch.collectionsorter.domain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -16,16 +16,16 @@ import com.gabrielsuch.collectionsorter.service.impl.CollectionSorterImpl;
 
 public class CollectionSorterTest {
 	
-	private final Collection<Car> collection = new HashSet<Car>();
+	private List<Car> collection = new ArrayList<Car>();
 	
 	@Before
 	public void setup() {
-		collection.add(new Car("Ford Fiesta", "Blue", 2011, 50000.0));
-		collection.add(new Car("Ford Focus", "Silver", 2009, 40000.0));
-		collection.add(new Car("Audi A3", "White", 2010, 90000.0));
-		collection.add(new Car("Audi A3", "Black", 2010, 99000.0));
-		collection.add(new Car("Audi A3", "Black", 2010, 100000.0));
-		collection.add(new Car("Audi A3", "Yellow", 2009, 95000.0));
+		collection.add(new Car("Ford Fiesta", "Blue", 2011, 50000));
+		collection.add(new Car("Ford Focus", "Silver", 2009, 40000));
+		collection.add(new Car("Audi A3", "White", 2010, 90000));
+		collection.add(new Car("Audi A3", "Black", 2010, 99000));
+		collection.add(new Car("Audi A3", "Black", 2010, 100000));
+		collection.add(new Car("Audi A3", "Yellow", 2009, 95000));
 	}
 	
 	@Test
@@ -39,12 +39,14 @@ public class CollectionSorterTest {
 	@Test
 	public void testOrderBySingleField() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("model", SortOrder.DESC));
-		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
+		collection = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
 		
-		assertEquals(current.get(0).getModel(), "Ford Focus");
-		assertEquals(current.get(1).getModel(), "Ford Fiesta");
-		assertEquals(current.get(2).getModel(), "Audi A3");
+		assertEquals(getItem(0).getModel(), "Ford Focus");
+		assertEquals(getItem(1).getModel(), "Ford Fiesta");
+		assertEquals(getItem(2).getModel(), "Audi A3");
 	}
+
+
 	
 	@Test
 	public void testOrderByTwoFields() {
@@ -52,14 +54,15 @@ public class CollectionSorterTest {
 				new Order("model"),
 				new Order("year", SortOrder.DESC)
 		);
-		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
 		
-		assertEquals(current.get(0).getYear(), 2010);
-		assertEquals(current.get(1).getYear(), 2010);
-		assertEquals(current.get(2).getYear(), 2010);
-		assertEquals(current.get(3).getYear(), 2009);
-		assertEquals(current.get(4).getYear(), 2011);
-		assertEquals(current.get(5).getYear(), 2009);
+		collection = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
+		
+		assertEquals(getItem(0).getYear(), 2010);
+		assertEquals(getItem(1).getYear(), 2010);
+		assertEquals(getItem(2).getYear(), 2010);
+		assertEquals(getItem(3).getYear(), 2009);
+		assertEquals(getItem(4).getYear(), 2011);
+		assertEquals(getItem(5).getYear(), 2009);
 	}
 	
 	@Test
@@ -69,39 +72,40 @@ public class CollectionSorterTest {
 				new Order("color"),
 				new Order("price")
 		);
-		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
 		
-		assertEquals(current.get(0).getColor(), "Black");
-		assertEquals(current.get(0).getPrice().intValue(), 99000);
+		collection = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
 		
-		assertEquals(current.get(1).getColor(), "Black");
-		assertEquals(current.get(1).getPrice().intValue(), 100000);
+		assertEquals(getItem(0).getColor(), "Black");
+		assertEquals(getItem(0).getPrice(), 99000);
 		
-		assertEquals(current.get(2).getColor(), "White");
+		assertEquals(getItem(1).getColor(), "Black");
+		assertEquals(getItem(1).getPrice(), 100000);
+		
+		assertEquals(getItem(2).getColor(), "White");
 	}
 	
 	@Test
 	public void testSimpleCriteria() {
-		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy("price");
+		collection = new CollectionSorterImpl<Car>(collection).sortBy("price");
 		
-		assertEquals(current.get(5).getPrice().intValue(), 100000);
-		assertEquals(current.get(4).getPrice().intValue(), 99000);
-		assertEquals(current.get(3).getPrice().intValue(), 95000);
-		assertEquals(current.get(2).getPrice().intValue(), 90000);
-		assertEquals(current.get(1).getPrice().intValue(), 50000);
-		assertEquals(current.get(0).getPrice().intValue(), 40000);
+		assertEquals(getItem(5).getPrice(), 100000);
+		assertEquals(getItem(4).getPrice(), 99000);
+		assertEquals(getItem(3).getPrice(), 95000);
+		assertEquals(getItem(2).getPrice(), 90000);
+		assertEquals(getItem(1).getPrice(), 50000);
+		assertEquals(getItem(0).getPrice(), 40000);
 	}
 	
 	@Test
 	public void testSimpleCriteriaDesc() {
-		List<Car> current = new CollectionSorterImpl<Car>(collection).sortBy("price", SortOrder.DESC);
+		collection = new CollectionSorterImpl<Car>(collection).sortBy("price", SortOrder.DESC);
 		
-		assertEquals(current.get(0).getPrice().intValue(), 100000);
-		assertEquals(current.get(1).getPrice().intValue(), 99000);
-		assertEquals(current.get(2).getPrice().intValue(), 95000);
-		assertEquals(current.get(3).getPrice().intValue(), 90000);
-		assertEquals(current.get(4).getPrice().intValue(), 50000);
-		assertEquals(current.get(5).getPrice().intValue(), 40000);
+		assertEquals(getItem(0).getPrice(), 100000);
+		assertEquals(getItem(1).getPrice(), 99000);
+		assertEquals(getItem(2).getPrice(), 95000);
+		assertEquals(getItem(3).getPrice(), 90000);
+		assertEquals(getItem(4).getPrice(), 50000);
+		assertEquals(getItem(5).getPrice(), 40000);
 	}
 	
 	@Test(expected = OrderException.class)
@@ -114,6 +118,10 @@ public class CollectionSorterTest {
 	public void testNullCollection() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("inexistentField"));
 		new CollectionSorterImpl<Car>(null).sortBy(orderCriteria);
+	}
+	
+	private Car getItem(int position) {
+		return collection.get(position);
 	}
 	
 }
