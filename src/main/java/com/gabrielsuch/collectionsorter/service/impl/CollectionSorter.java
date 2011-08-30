@@ -26,8 +26,6 @@ public class CollectionSorter<T> implements ICollectionSorter<T> {
 	
 	@Override
 	public List<T> sortBy(OrderCriteria orderCriteria) {
-		if (orderCriteria == null || collection.isEmpty()) return collection;
-		
 		return sort(orderCriteria);
 	}
 	
@@ -38,12 +36,12 @@ public class CollectionSorter<T> implements ICollectionSorter<T> {
 	
 	@Override
 	public List<T> sortBy(String fieldName, SortOrder sortOrder) {
-		if (fieldName == null) return collection;
-		
 		return sort(new OrderCriteria(new Order(fieldName, sortOrder)));
 	}
 	
+	@SuppressWarnings("unchecked")
 	private List<T> sort(OrderCriteria orderCriteria) {
+		if (orderCriteria == null || collection.isEmpty()) return collection;
 		sanityCheck(orderCriteria);
 		
 		ComparatorChain orderBy = new OrderToComparator().convert(orderCriteria);
@@ -54,11 +52,12 @@ public class CollectionSorter<T> implements ICollectionSorter<T> {
 
 	private void sanityCheck(OrderCriteria orderCriteria) {
 		Class<?> clazz = collection.get(0).getClass();
-		
-		for (Order order : orderCriteria.getCriteria()) {
-			if ( ReflectionUtils.classContainsGetter(clazz, order.getField()) ) continue;
-			throw new OrderException("The getter for " + order.getField() + " was not found.");
-		}
+		for (Order order : orderCriteria.getCriteria()) testExistenceOfGetter(clazz, order);
+	}
+
+	private void testExistenceOfGetter(Class<?> clazz, Order order) {
+		if ( ReflectionUtils.classContainsGetter(clazz, order.getField()) ) return;
+		throw new OrderException("The getter for " + order.getField() + " was not found.");
 	}
 	
 }
