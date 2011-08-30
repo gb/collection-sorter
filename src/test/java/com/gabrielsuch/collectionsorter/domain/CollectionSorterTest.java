@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import com.gabrielsuch.collectionsorter.domain.testdouble.Car;
 import com.gabrielsuch.collectionsorter.infra.exception.OrderException;
-import com.gabrielsuch.collectionsorter.service.impl.CollectionSorterImpl;
+import com.gabrielsuch.collectionsorter.service.impl.CollectionSorter;
 
 public class CollectionSorterTest {
 	
@@ -31,7 +31,7 @@ public class CollectionSorterTest {
 	@Test
 	public void testSortAnEmptyCollection() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("model"));
-		List<Car> current = new CollectionSorterImpl<Car>(new HashSet<Car>()).sortBy(orderCriteria);
+		List<Car> current = new CollectionSorter<Car>(new HashSet<Car>()).sortBy(orderCriteria);
 		
 		assertTrue(current.isEmpty());
 	}
@@ -39,7 +39,7 @@ public class CollectionSorterTest {
 	@Test
 	public void testOrderBySingleField() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("model", SortOrder.DESC));
-		collection = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
+		collection = new CollectionSorter<Car>(collection).sortBy(orderCriteria);
 		
 		assertEquals(getItem(0).getModel(), "Ford Focus");
 		assertEquals(getItem(1).getModel(), "Ford Fiesta");
@@ -55,7 +55,7 @@ public class CollectionSorterTest {
 				new Order("year", SortOrder.DESC)
 		);
 		
-		collection = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
+		collection = new CollectionSorter<Car>(collection).sortBy(orderCriteria);
 		
 		assertEquals(getItem(0).getYear(), 2010);
 		assertEquals(getItem(1).getYear(), 2010);
@@ -73,7 +73,7 @@ public class CollectionSorterTest {
 				new Order("price")
 		);
 		
-		collection = new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
+		collection = new CollectionSorter<Car>(collection).sortBy(orderCriteria);
 		
 		assertEquals(getItem(0).getColor(), "Black");
 		assertEquals(getItem(0).getPrice(), 99000);
@@ -86,7 +86,7 @@ public class CollectionSorterTest {
 	
 	@Test
 	public void testSimpleCriteria() {
-		collection = new CollectionSorterImpl<Car>(collection).sortBy("price");
+		collection = new CollectionSorter<Car>(collection).sortBy("price");
 		
 		assertEquals(getItem(5).getPrice(), 100000);
 		assertEquals(getItem(4).getPrice(), 99000);
@@ -98,7 +98,7 @@ public class CollectionSorterTest {
 	
 	@Test
 	public void testSimpleCriteriaDesc() {
-		collection = new CollectionSorterImpl<Car>(collection).sortBy("price", SortOrder.DESC);
+		collection = new CollectionSorter<Car>(collection).sortBy("price", SortOrder.DESC);
 		
 		assertEquals(getItem(0).getPrice(), 100000);
 		assertEquals(getItem(1).getPrice(), 99000);
@@ -111,13 +111,13 @@ public class CollectionSorterTest {
 	@Test(expected = OrderException.class)
 	public void testSanityCheck() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("inexistentField"));
-		new CollectionSorterImpl<Car>(collection).sortBy(orderCriteria);
+		new CollectionSorter<Car>(collection).sortBy(orderCriteria);
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testNullCollection() {
 		OrderCriteria orderCriteria = new OrderCriteria(new Order("inexistentField"));
-		new CollectionSorterImpl<Car>(null).sortBy(orderCriteria);
+		new CollectionSorter<Car>(null).sortBy(orderCriteria);
 	}
 	
 	private Car getItem(int position) {

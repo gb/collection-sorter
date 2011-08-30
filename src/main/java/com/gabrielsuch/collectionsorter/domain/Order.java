@@ -3,10 +3,11 @@ package com.gabrielsuch.collectionsorter.domain;
 public class Order {
 	
 	private final String field;
-	private SortOrder sortOrder = SortOrder.ASC;
+	private final SortOrder sortOrder;
 	
 	public Order(String field) {
 		this.field = field;
+		this.sortOrder = SortOrder.ASC;
 	}
 	
 	public Order(String field, SortOrder sortOrder) {
@@ -19,7 +20,7 @@ public class Order {
 	}
 	
 	public boolean isDesc() {
-		return sortOrder.equals(SortOrder.DESC);
+		return SortOrder.DESC == this.sortOrder;
 	}
 
 }

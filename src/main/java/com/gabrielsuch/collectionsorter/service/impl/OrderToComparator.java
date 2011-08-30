@@ -8,7 +8,7 @@ import com.gabrielsuch.collectionsorter.domain.OrderCriteria;
 
 class OrderToComparator {
 
-	protected static ComparatorChain convert(OrderCriteria orderCriteria) {
+	protected ComparatorChain convert(OrderCriteria orderCriteria) {
 		ComparatorChain multipleComparator = new ComparatorChain();
 		
 		for (Order order : orderCriteria.getCriteria()) 
@@ -17,7 +17,7 @@ class OrderToComparator {
 		return multipleComparator;
 	}
 	
-	private static BeanComparator comparator(Order order) {
+	private BeanComparator comparator(Order order) {
 		return new BeanComparator(order.getField());
 	}
 

@@ -13,13 +13,13 @@ import com.gabrielsuch.collectionsorter.domain.SortOrder;
 import com.gabrielsuch.collectionsorter.infra.exception.OrderException;
 import com.gabrielsuch.collectionsorter.infra.util.Preconditions;
 import com.gabrielsuch.collectionsorter.infra.util.ReflectionUtils;
-import com.gabrielsuch.collectionsorter.service.CollectionSorter;
+import com.gabrielsuch.collectionsorter.service.ICollectionSorter;
 
-public class CollectionSorterImpl<T> implements CollectionSorter<T> {
+public class CollectionSorter<T> implements ICollectionSorter<T> {
 
-	private List<T> collection;
+	private final List<T> collection;
 	
-	public CollectionSorterImpl(Collection<T> collection) {
+	public CollectionSorter(Collection<T> collection) {
 		Preconditions.checkNotNull(collection);
 		this.collection = new ArrayList<T>(collection);
 	}
@@ -46,7 +46,7 @@ public class CollectionSorterImpl<T> implements CollectionSorter<T> {
 	private List<T> sort(OrderCriteria orderCriteria) {
 		sanityCheck(orderCriteria);
 		
-		ComparatorChain orderBy = OrderToComparator.convert(orderCriteria);
+		ComparatorChain orderBy = new OrderToComparator().convert(orderCriteria);
 		Collections.sort(collection, orderBy);
 		
 		return collection;
@@ -57,7 +57,7 @@ public class CollectionSorterImpl<T> implements CollectionSorter<T> {
 		
 		for (Order order : orderCriteria.getCriteria()) {
 			if ( ReflectionUtils.classContainsGetter(clazz, order.getField()) ) continue;
-			throw new OrderException("The field " + order.getField() + " was not found.");
+			throw new OrderException("The getter for " + order.getField() + " was not found.");
 		}
 	}
 	
