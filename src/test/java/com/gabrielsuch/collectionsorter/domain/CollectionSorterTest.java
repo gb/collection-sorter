@@ -85,6 +85,19 @@ public class CollectionSorterTest {
 	}
 	
 	@Test
+	public void testOrderByThreeFieldsWithStringParametersMethod() {		
+		collection = new CollectionSorter<Car>(collection).sortBy("model", "color", "price");
+		
+		assertEquals(getItem(0).getColor(), "Black");
+		assertEquals(getItem(0).getPrice(), 99000);
+		
+		assertEquals(getItem(1).getColor(), "Black");
+		assertEquals(getItem(1).getPrice(), 100000);
+		
+		assertEquals(getItem(2).getColor(), "White");
+	}
+	
+	@Test
 	public void testSimpleCriteria() {
 		collection = new CollectionSorter<Car>(collection).sortBy("price");
 		

@@ -9,7 +9,7 @@ public interface ICollectionSorter<T> {
 
 	List<T> sortBy(OrderCriteria orderCriteria);
 	
-	List<T> sortBy(String fieldName);
+	List<T> sortBy(String... fieldNames);
 	
 	List<T> sortBy(String fieldName, SortOrder sortOrder);
 

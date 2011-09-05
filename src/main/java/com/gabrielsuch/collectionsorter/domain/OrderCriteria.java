@@ -11,6 +11,10 @@ public class OrderCriteria {
 	public OrderCriteria(Order... orders) {
 		for (Order order : orders) orderCriteria.add(order);
 	}
+		
+	public OrderCriteria(String... fieldNames) {
+		for (String fieldName : fieldNames) orderCriteria.add(new Order(fieldName));
+	}
 
 	public List<Order> getCriteria() {
 		return Collections.unmodifiableList(orderCriteria);

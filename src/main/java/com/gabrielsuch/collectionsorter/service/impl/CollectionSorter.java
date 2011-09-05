@@ -30,8 +30,8 @@ public class CollectionSorter<T> implements ICollectionSorter<T> {
 	}
 	
 	@Override
-	public List<T> sortBy(String fieldName) {
-		return sortBy(fieldName, SortOrder.ASC);
+	public List<T> sortBy(String... fieldNames) {
+		return sort(new OrderCriteria(fieldNames));
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class CollectionSorter<T> implements ICollectionSorter<T> {
 
 	private void testExistenceOfGetter(Class<?> clazz, Order order) {
 		if ( ReflectionUtils.classContainsGetter(clazz, order.getField()) ) return;
-		throw new OrderException("The getter for " + order.getField() + " was not found.");
+		throw new OrderException("The getter for \"" + order.getField() + "\" was not found in class " + clazz + ".");
 	}
 	
 }

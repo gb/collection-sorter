@@ -16,9 +16,14 @@ public class OrderCriteriaTest {
 			new Order("price")
 		);
 		
-		assertEquals(orderCriteria.getCriteria().get(0).getField(), "color");
-		assertEquals(orderCriteria.getCriteria().get(1).getField(), "year");
-		assertEquals(orderCriteria.getCriteria().get(2).getField(), "price");
+		assertEquals("[color, year, price]", orderCriteria.getCriteria().toString());
+	}
+
+	@Test
+	public void testEnsureTheIndexOfOrdersWithStringParametersConstructor() {
+		orderCriteria = new OrderCriteria("color", "year", "price");
+		
+		assertEquals("[color, year, price]", orderCriteria.getCriteria().toString());
 	}
 
 }
