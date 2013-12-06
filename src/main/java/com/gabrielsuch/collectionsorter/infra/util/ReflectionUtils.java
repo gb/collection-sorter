@@ -16,7 +16,7 @@ public class ReflectionUtils {
 
 		return false;
 	}
-	
+
 	private static boolean isGetterToField(Method method, String fieldName) {
 		return method.getName().equals(getterName(fieldName));
 	}

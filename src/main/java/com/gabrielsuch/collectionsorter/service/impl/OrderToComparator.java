@@ -1,15 +1,15 @@
 package com.gabrielsuch.collectionsorter.service.impl;
 
-import org.apache.commons.beanutils.BeanComparator;
-import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.commons.collections15.comparators.ComparatorChain;
 
 import com.gabrielsuch.collectionsorter.domain.Order;
 import com.gabrielsuch.collectionsorter.domain.OrderCriteria;
+import com.gabrielsuch.collectionsorter.infra.util.GenericBeanComparator;
 
-class OrderToComparator {
+class OrderToComparator<T> {
 
-	protected ComparatorChain convert(OrderCriteria orderCriteria) {
-		ComparatorChain multipleComparator = new ComparatorChain();
+	protected ComparatorChain<T> convert(OrderCriteria orderCriteria) {
+		ComparatorChain<T> multipleComparator = new ComparatorChain<T>();
 		
 		for (Order order : orderCriteria.getCriteria()) 
 			multipleComparator.addComparator(comparator(order), order.isDesc());
@@ -17,8 +17,8 @@ class OrderToComparator {
 		return multipleComparator;
 	}
 	
-	private BeanComparator comparator(Order order) {
-		return new BeanComparator(order.getField());
+	private GenericBeanComparator<T> comparator(Order order) {
+		return new GenericBeanComparator<T>(order.getField());
 	}
 
 }

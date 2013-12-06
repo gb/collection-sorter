@@ -29,4 +29,5 @@ public class Order {
 		if (sortOrder == DEFAULT_ORDER) return field;
 		return field + " " + sortOrder;
 	}
+	
 }
