@@ -1,4 +1,4 @@
-Collection Sorter
+Collection Sorter [![Build Status](https://travis-ci.org/gabrielsuch/collection-sorter.png)](https://travis-ci.org/gabrielsuch/collection-sorter)
 ===
 
 It's about provide an API to order collections easily in SQL 'order by' style.
@@ -6,11 +6,12 @@ It's about provide an API to order collections easily in SQL 'order by' style.
 Imagine you have a Collection<Car> or any other typed collection.
 You want to sort this collection by a specific property.
 
-What you are supposed to do?
-	1) Ask to your datasource again?
-	2) Implements a lot of different comparator/comparable?
-	3) Reinvent the wheel?
-
+What you are supposed to do? 
+<ol>
+<li>Ask to your datasource again?</li>
+<li>Implements a lot of different comparator/comparable?</li>
+<li>Reinvent the wheel?</li>
+</ol>
 
 What about:
 ```java
