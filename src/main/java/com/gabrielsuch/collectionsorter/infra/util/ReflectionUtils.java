@@ -2,8 +2,6 @@ package com.gabrielsuch.collectionsorter.infra.util;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.lang.StringUtils;
-
 public class ReflectionUtils {
 	
 	private ReflectionUtils() { }
@@ -24,5 +22,5 @@ public class ReflectionUtils {
 	private static String getterName(String fieldName) {
 		return "get" + StringUtils.capitalize(fieldName);
 	}
-
+	
 }
