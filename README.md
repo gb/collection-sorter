@@ -1,4 +1,5 @@
-*** Collection Sorter
+Collection Sorter
+===
 
 It's about provide an API to order collections easily in SQL 'order by' style.
 
@@ -12,33 +13,33 @@ What you are supposed to do?
 
 
 What about:
-
-	new CollectionSorter(yourCollection).sortBy("price");
-
+```java
+new CollectionSorter(yourCollection).sortBy("price");
+```
 
 Well, maybe you want it in descending order:
-
-	new CollectionSorter(yourCollection).sortBy("price", SortOrder.DESC);
-
+```java
+new CollectionSorter(yourCollection).sortBy("price", SortOrder.DESC);
+```
 
 Sometimes we've gotta sort by multiple columns:
-
-	new CollectionSorter(yourCollection).sortBy("price", "color", "year");
-
+```java
+new CollectionSorter(yourCollection).sortBy("price", "color", "year");
+```
 or:
-
-	OrderCriteria criteria = new OrderCriteria(
-		new Order("color"), 
-		new Order("year", SortOrder.DESC)
-	);
+```java
+OrderCriteria criteria = new OrderCriteria(
+     new Order("color"), 
+     new Order("year", SortOrder.DESC)
+);
 	
-	new CollectionSorter(yourCollection).sortBy(criteria);
-
+new CollectionSorter(yourCollection).sortBy(criteria);
+```
 
 All right, but now your customer has changed his mind.
 He had the brilliant idea of sort by the lowest price.
 But still keep the others sorters before it. What you have to do?
-
+``` java
 	OrderCriteria criteria = new OrderCriteria(
 		new Order("color"), 
 		new Order("year", SortOrder.DESC), 
@@ -46,3 +47,4 @@ But still keep the others sorters before it. What you have to do?
 	); 
 	
 	new CollectionSorter(yourCollection).sortBy(criteria);
+```
